@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Raleway&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../add-blog.css">
+    <title>Document</title>
+</head>
+
+<body>
+    <form action="/<% if (editing) { %>edit-blog<% } else { %>add-blog<% } %>" method="POST" enctype="multipart/form-data">
+        <div class="form_title">
+            <input placeholder="Title" class="form" type="text" name="title" value="<% if (editing) { %><%= blog.title %><% } %>">
+        </div>
+        <div class="form">
+            <input class="form" type="file" name="image" id="image">
+        </div>
+        <div class="form_blog">
+            <textarea class="form" placeholder="Blog" name="blog" id="space" cols="30" rows="100" ><% if (editing){ %><%= blog.blog %><% } %></textarea>
+        </div>
+        <% if (editing) { %>
+            <input type="hidden" value="<%=blog._id %>" name="blogId">
+        <% } %>
+        <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+        <button class="post_btn" type="submit"><% if (editing) { %>Edit<% } else { %>Post<% } %></button>
+    </form>
+</body>
+<script src="../style.js"></script>
+
+</html>

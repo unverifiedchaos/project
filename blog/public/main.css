@@ -1,0 +1,169 @@
+body {
+    font-family: 'Raleway', sans-serif;
+}
+
+.box {
+    box-shadow: gray 2px 2px 5px;
+    text-align: start;
+    border-left: 3px solid #a997df;
+    margin: 20px 0px;
+    padding: 10px;
+    height: 120px;
+}
+
+.box:active {
+    background-color: rgb(231, 231, 231);
+}
+
+#searchbar {
+    border-top-style: hidden;
+    border-right-style: hidden;
+    border-left-style: hidden;
+    border-bottom-style: hidden;
+    background-color: rgb(235, 235, 235);
+    padding: 5px 0px;
+    border-radius: 5px;
+}
+
+a {
+    text-decoration: none;
+}
+
+.sidenav_button{
+    border: none;
+    text-decoration: none;
+    position: relative;
+    right: 2%;
+    font-size: 20px;
+    background-color:transparent;
+    color: #432344;
+    display: block;
+    transition: 0.3s;
+}
+
+button{
+    border: transparent;
+    background-color: transparent;
+}
+
+.sidenav_button:hover{
+    color: white
+}
+
+p {
+    padding: 10px 0px;
+    width: 60%;
+}
+
+h1 {
+    letter-spacing: 2px;
+}
+
+h3 {
+    font-size: 18px;
+    overflow-x: hidden;
+}
+
+.btn {
+    background-color: #432344;
+    color: white;
+    padding: 15px 18px;
+    border: 1px solid;
+    margin: 20px 0px 0px 0px;
+    border-radius: 5px;
+}
+
+.logo {
+    color: #a997df;
+}
+
+#searchbar {
+    display: flex;
+    padding: 5px 12px;
+    margin: 10px 0px;
+}
+
+.fa-search {
+    display: inline;
+}
+
+.img {
+    float: right;
+    width: 120px;
+    height: 100%;
+    border: 0px;
+    padding: 10px;
+    outline: none;
+    height: 100px;
+}
+
+/* sidenav */
+
+.sidenav {
+    height: 100%;
+    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+    width: 0;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    background-color:white;
+    overflow-x: hidden;
+    transition: 0.2s;
+    padding-top: 60px;
+}
+
+.sidenav a {
+    padding: 18px 8px 18px 32px;
+    text-decoration: none;
+    position: relative;
+    right: 1%;
+    font-weight: 800;
+    font-size: 20px;
+    color: #432344;
+    display: block;
+    transition: 0.3s;
+}
+
+.sidenav a:hover {
+    background-color: #43234471;
+    color: white
+}
+
+.sidenav .closebtn {
+    position: absolute;
+    top: 0;
+    right: 25px;
+    font-size: 36px;
+    margin-left: 50px;
+}
+
+.sidenav .closebtn:hover{
+    background-color: white;
+    color: black;
+}
+
+@media screen and (max-height: 450px) {
+    .sidenav {
+        padding-top: 15px;
+    }
+
+    .sidenav a {
+        font-size: 18px;
+    }
+}
+
+/* sidenav */
+
+.fa-trash-o{
+    color: black;
+    margin: 0px 5px;
+}
+.fa-pencil-square-o{
+    color: black;
+    margin: 0px 5px
+}
+.flex{
+    display: flex;
+    width: 20%;
+}

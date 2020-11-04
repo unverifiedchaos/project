@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Raleway&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../display.css">
+    <title>Display</title>
+</head>
+
+<body>
+    <ul>
+        <h2 class="logo">BlogWorm</h2>
+        <%- include('./nav.ejs') %>
+    </ul>
+    <h1><%= blog.title %></h1>
+    <img class="mainImage" src="/<%= blog.imageUrl %>" onerror="this.style.display='none';" alt="">
+    <p><%= blog.blog %></p>
+</body>
+<script src="../style.js"></script>
+</html>

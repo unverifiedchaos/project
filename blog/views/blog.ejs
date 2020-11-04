@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Raleway&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../main.css">
+    <title>Document</title>
+</head>
+
+<body>
+    <h1 class="logo">BlogWorm</h1>
+    <%- include('./nav.ejs') %>
+    <% if (!isAuthenticated) { %>
+    <% } else { %>
+    <form action="/logout" method="post">
+        <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+        <button class="btn" type="submit">Logout</button>
+    </form>
+    <% } %>
+    <% if (art.length > 0 ) { %>
+    <input type="text" id="searchbar" onkeypress="search_items()" placeholder="&#128270 Search">
+    <% for (let blog of art) { %>
+    <div onclick="location.href='/display/<%= blog._id %>';" class="box">
+        <img class="img" onerror="this.style.display='none';" src="/<%= blog.imageUrl %>">
+        <h3><%= blog.title %></h3>
+        <p>Date</p>
+    </div>
+    <% } %>
+    <% } else { %>
+    <h1>No blogs yet...</h1>
+    <a href="/add-blog"><button class="btn">Add a blog</button></a>
+    <% } %>
+</body>
+<script src="../style.js"></script>
+
+</html>

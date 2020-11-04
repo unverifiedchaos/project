@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Raleway&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../main.css">
+    <title>Document</title>
+</head>
+
+<body>
+    <h1 class="logo">Profile</h1>
+    <%- include('../nav.ejs') %>
+    <% if (isAuthenticated) { %>
+    <p><%= name %></p>
+    <a href="/add-blog"><button class="btn">add a blog</button></a>
+    <% } %>
+    <% if (art.length > 0 ) { %>
+    <hr>
+    <input type="text" id="searchbar" onkeypress="search_items()" placeholder="&#128270 Search">
+    <% for (let blog of art) { %>
+    <div onclick="location.href='/display/<%= blog._id %>';" class="box">
+        <img class="img" onerror="this.style.display='none';" src="/<%= blog.imageUrl %>">
+        <h3><%= blog.title %></h3>
+            <div class="flex">
+                <a href="/edit-blog/<%= blog._id %>?edit=true"><i class="fa fa-pencil-square-o" style="font-size:24px"></i></a>
+                <a href="">
+                        <input type="hidden" name="blogId" value="<%= blog._id %>">
+                        <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+                        <button type="button" onclick="deleteBlog(this)" ><i class="fa fa-trash-o" style="font-size:24px"></i></button>
+                </a>
+            </div>
+        </div>
+    </div>
+    <% } %>
+    <hr>
+    <% } else { %>
+    <h1>No blogs yet...</h1>
+    <a href="/add-blog"><button class="btn">Add a blog</button></a>
+    <% } %>
+</body>
+<script src="../style.js"></script>
+<script src="../admin.js"></script>
+
+</html>

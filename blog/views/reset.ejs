@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Raleway&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../form.css">
+    <title>Document</title>
+</head>
+
+<body>
+    <div class="box">
+        <% if(errorMessage){ %>
+            <h3><%= errorMessage %></h3>
+        <% } %>
+        <form action="/reset" method="POST">
+            <div class="form_title">
+                <input placeholder="Email" class="form" type="email" name="email">
+            </div>
+            <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+            <button class="post_btn" type="submit">Reset Password</button>
+        </form>
+    </div>
+</body>
+<script src="../style.js"></script>
+
+</html>

@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Raleway&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../main.css">
+    <link rel="stylesheet" href="">
+    <title>Saved</title>
+</head>
+
+<body>
+    <h2 class="logo"><a href="/">Saved</a></h2>
+    <% if (art.length > 0 ) { %>
+    <% art.forEach(b=>{ %>
+    <% for (let blog of art) { %>
+    <div onclick="location.href='/display/<%= blog.blogId._id %>';" class="box">
+        <img class="img" onerror="this.style.display='none';" src="<%= blog.imageUrl %>">
+        <h2><%= b.blogId.title %></h2>
+        <form action="/delete-saved" method="POST" >
+            <button class="btn" type="submit">DEL</button>
+            <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+            <input type="hidden" name="blogId" value="<%= b.blogId._id %>">
+        </form>
+    </div>
+    <% } %>
+    <% }) %>
+    <% } else { %>
+    <h2>No blogs yet...</h2>
+    <% } %>
+</body>
+
+</html>

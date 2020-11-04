@@ -1,0 +1,54 @@
+body {
+    font-family: 'Raleway', sans-serif;
+}
+form{
+    text-align: center;
+    outline: none;
+}
+.form_title{
+    padding: 10px 0px 10px 0px;
+    margin-top: 10%;
+    width: 100%;
+    outline: none;
+    border-top-style: hidden;
+    border-right-style: hidden;
+    border-left-style: hidden;
+    border-bottom-style: 1px solid;
+}
+
+input,
+.form_title input::-webkit-input-placeholder{
+    font-size: 25px;
+}
+textarea,
+.form_blog textarea::-webkit-input-placeholder{
+    font-size: 15px;
+}
+
+.form{
+    width: 100%;
+    outline: none;
+    border-top-style: hidden;
+    border-right-style: hidden;
+    border-left-style: hidden;
+    border-bottom-style: 1px solid;
+}
+
+.form_blog{
+    height: 100vh;
+    width: 100%;
+    outline: none;
+    border-top-style: hidden;
+    border-right-style: hidden;
+    border-left-style: hidden;
+    border-bottom-style: groove;
+}
+.post_btn{
+    position:fixed;
+    left: 80%;
+    top: 90%;
+    color: white;
+    background-color: #432344;
+    border: none;
+    padding: 12px 15px;
+}

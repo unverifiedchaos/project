@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+
+    <div id="mySidenav" class="sidenav">
+        <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+        <% if(isAuthenticated){ %>
+            <a href="/profile">Profile</a>
+            <a href="/add-blog">Add a Blog</a>
+            <a href="/">Home</a>
+            <a href="">
+                <form action="/logout" method="post">
+                    <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+                    <button class="sidenav_button" type="submit">Logout</button>
+                </form>
+            </a>
+        <% }else{ %>
+            <a href="/login">Login</a>
+            <a href="/signup">SignUp</a>
+        <% } %>
+    </div>  
+
+    <span class="burger" style="font-size:30px;cursor:pointer" onclick="openNav()">&#9776; </span>
+
+
+</html>

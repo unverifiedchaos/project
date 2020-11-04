@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Raleway&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../form.css">
+    <title>Document</title>
+</head>
+
+<body>
+    <div class="box">
+        <h1>Sign In</h1>
+        <% if(errorMessage){ %>
+            <div class="error">
+                <%= errorMessage %>
+            </div>
+        <% } %>
+        <form action="/login" method="POST">
+            <div class="form_title">
+                <input placeholder="Email" class="form" type="email" name="email">
+            </div>
+            <div class="form_title">
+                <input placeholder="password" type="password" class="form" name="password">
+            </div>
+            <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+            <button class="post_btn" type="submit">LOGIN</button>
+        </form>
+        <% if(errorMessage){ %>
+            <div class="centered" >
+                <a href="/reset">Reset Password</a>
+            </div>
+            <button class="post_btn"><a href="/signup">SIGNUP</a></button>
+        <% } %>
+    </div>
+</body>
+<script src="../style.js"></script>
+
+</html>

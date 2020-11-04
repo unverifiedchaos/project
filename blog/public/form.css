@@ -1,0 +1,84 @@
+body {
+    font-family: 'Raleway', sans-serif;
+    background-color: ghostwhite;
+}
+.error{
+    border: 0.1px solid red;
+    width: 70%;
+    padding: 3px 12px;
+    text-align: center;
+    position: relative;
+    left:50%;
+    top: 0%;
+    background-color: rgba(255, 0, 0, 0.164);
+    margin: 15px 0px;
+    color: red;
+    transform: translate(-50%, 0%);
+}
+
+.form_title input{
+    position: relative;
+    transition-duration:0.1s ;
+    left:50%;
+    top: 0%;
+    border:transparent;
+    border-radius: 2px;
+    box-shadow: lightgray 1px 5px 5px;
+    margin: 10px 0px;
+    transform: translate(-50%, 0%);
+    margin-left:auto;
+    margin-right:auto;
+    width: 80%;
+    outline: none;
+    padding: 12px 0px;
+}
+.form_title input::placeholder{
+    padding-left:20px;
+}
+.form_title input:focus{
+    border-bottom: 3px solid #977fe0;   
+    border-top: 1px solid transparent;   
+    border-left: 1px solid transparent;   
+    border-right: 1px solid transparent;   
+}
+h1{
+    text-align: center;
+    color:#a997df;
+}
+.centered{
+    text-align: center;
+}
+.post_btn{
+    position: relative;
+    padding: 8px 18px;
+    border-radius:5px;
+    left:50%;
+    top: 0%;
+    transform: translate(-50%, 0%);
+    width: 80%;
+    transition-duration: 0.2s;
+    border:1px solid #7a407c;
+    color: #7a407c;
+    background-color: transparent;
+    margin:10px 0px;
+}
+.post_btn:hover{
+    background-color: #7a407c;
+    outline:none;
+    color: white;
+}
+.post_btn:active{
+    outline:none;
+    background-color: #a997df;
+    color: white;
+}
+.box{
+    background-color: white;
+    box-shadow: gray 2px 2px 5px;
+    padding:15% 5%;
+    position: relative;
+    left:50%;
+    bottom:0%;
+    transform: translate(-50%, 20%);
+    width: 70%;
+}
