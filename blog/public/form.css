@@ -28,13 +28,11 @@ body {
     transform: translate(-50%, 0%);
     margin-left:auto;
     margin-right:auto;
-    width: 80%;
+    width: 70%;
     outline: none;
-    padding: 12px 0px;
+    padding: 12px 20px;
 }
-.form_title input::placeholder{
-    padding-left:20px;
-}
+
 .form_title input:focus{
     border-bottom: 3px solid #977fe0;   
     border-top: 1px solid transparent;   
