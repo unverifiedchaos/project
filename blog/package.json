@@ -13,7 +13,8 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "nodemon": "^2.0.4"
+    "nodemon": "^2.0.4",
+    "mquery": "3.2.3"
   },
   "dependencies": {
     "bcryptjs": "^2.4.3",
