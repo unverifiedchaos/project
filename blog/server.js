@@ -10,7 +10,7 @@ const mongoose = require('mongoose')
 const session = require('express-session')
 const MongoDBStore = require('connect-mongodb-session')(session);
 
-const MongoDB_URI = 'mongodb+srv://turd_waffle:SaifKhan@cluster0.lltqs.mongodb.net/blogworm?';
+const MongoDB_URI = 'mongodb+srv://<username>:<password>@cluster0.lltqs.mongodb.net/blogworm?';
 const csrfProtection = csrf({})
 
 const app = express();
