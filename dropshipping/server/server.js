@@ -8,6 +8,7 @@ const cors=require('cors');
 const csurf=require('csurf');
 const mongoUri="mongodb://localhost/projects"
 
+
 const port=process.env.PORT || 8080
 
 const app = express();
@@ -16,6 +17,7 @@ const auth=require('./routes/routes')
 const crud=require('./routes/crud')
 
 const Role=require('./database/roles')
+
 
 /* const store=new MongoStore({
     uri:mongoUri,
@@ -66,6 +68,8 @@ function initial(){
         }
     })
 }
+
+
 
 app.listen(port, ()=>{
     console.log('connected to port '+port);

@@ -1,25 +1,34 @@
-import logo from './logo.svg';
+import { Component } from 'react';
 import './App.css';
+import OAuth from './components/oauth'
+import UsersList from './components/UsersList'
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+export default class App extends Component {
+
+  state={
+    users:[]//store users from api
+  }
+
+  componentDidMount(){
+    fetch('http://localhost:8080/')
+    .then(res=>res.json())
+    .then(data=>{
+      console.log(data)
+      this.setState({users:data}    )
+    })
+    .catch(err=>{
+      console.log(err+' err')
+    })
+  }
+
+  render() {
+    return (
+      <div>
+        <OAuth />
+        <UsersList users={this.state.users} />
+      </div>
+    )
+  }
 }
 
-export default App;
+

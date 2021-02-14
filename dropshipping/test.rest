@@ -52,4 +52,4 @@ Content-Type: application/json
 ###
 
 get http://localhost:8080/auth/verify
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYwMjUwNmM5ODFkODlkMTE0ZWE0NzFiNCIsImlhdCI6MTYxMzA0MTU0OSwiZXhwIjoxNjEzMDQ1MTQ5fQ.-iM4hMVh9WJps9JFTB6RNEBx79ZsgBx2WrMFUm-A4uE
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYwMjUwNmM5ODFkODlkMTE0ZWE0NzFiNCIsImlhdCI6MTYxMzI4MzY2MSwiZXhwIjoxNjEzMjg3MjYxfQ.03asLT2dpxuujz3XsREgm51okKoJkERIcVz_7p1CGlY
