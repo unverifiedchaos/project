@@ -1,34 +1,38 @@
-import { Component } from 'react';
+import { Component, useState } from 'react';
+import PropTypes from 'prop-types';
 import './App.css';
+import {Route, Switch} from 'react-router'
+import {BrowserRouter} from 'react-router-dom'
 import OAuth from './components/oauth'
+import Dashboard from './components/dashboard'
 import UsersList from './components/UsersList'
+import Login from './components/login'
 
-export default class App extends Component {
+function App(){
 
-  state={
-    users:[]//store users from api
-  }
-
-  componentDidMount(){
-    fetch('http://localhost:8080/')
-    .then(res=>res.json())
-    .then(data=>{
-      console.log(data)
-      this.setState({users:data}    )
-    })
-    .catch(err=>{
-      console.log(err+' err')
-    })
-  }
-
-  render() {
-    return (
-      <div>
-        <OAuth />
-        <UsersList users={this.state.users} />
-      </div>
-    )
-  }
+  return (
+    <div >
+      <OAuth />
+      <ul>
+      <li><a href="/login">Login</a></li>
+      <li><a href="/dashboard">dashboard</a></li>
+      <li><a href="/users">users</a></li>
+      </ul>
+        <BrowserRouter>
+          <Switch>
+            <Route path='/dashboard'>
+                <Dashboard />
+            </Route>
+            <Route path='/users'>
+              <UsersList/>
+            </Route>
+            <Route path='/login'>
+              <Login />
+            </Route>
+          </Switch>
+        </BrowserRouter>
+    </div>
+  )
 }
 
-
+export default App;

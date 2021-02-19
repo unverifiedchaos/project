@@ -1,5 +1,4 @@
 const SignUp=require('../database/signup');
-const Roles=require('../database/roles')
 const bcrypt=require('bcryptjs');
 const jwt=require('jsonwebtoken');
 const signup = require('../database/signup');
@@ -44,4 +43,3 @@ exports.findUser=(req, res, next)=>{
         res.status(200).send(user)
     })
 }
-

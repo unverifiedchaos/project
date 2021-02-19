@@ -18,12 +18,9 @@ const Schema = mongoose.Schema({
         type: String,
         required: true
     },
-    roles: [
-        {
-        type: mongoose.Schema.Types.ObjectID,
-        ref: "Role"
-        }
-    ],
+    accessToken:{
+        type:String
+    },
     signIn_date: {
         type: Date,
         default:Date.now()

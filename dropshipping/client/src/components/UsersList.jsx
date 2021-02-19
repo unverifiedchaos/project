@@ -1,8 +1,25 @@
 import React, { Component } from 'react'
 
 export default class UsersList extends Component {
+
+    state={
+        users:[]//store users from api
+      }
+    
+      componentDidMount(){
+        fetch('http://localhost:8080/')
+        .then(res=>res.json())
+        .then(data=>{
+          console.log(data)
+          this.setState({users:data})//stores data into users state
+        })
+        .catch(err=>{
+          console.log(err+' err')
+        })
+      }
+
     render() {
-        const {users}=this.props;
+        const users=this.state.users;
         console.log(users+'ussers boi')
         if(users.length===0 || !users)return<p>No current users..</p>
         return (
@@ -15,7 +32,6 @@ export default class UsersList extends Component {
                         <p>{user.name}</p>
                         <p>{user.gender}</p>
                         <p>{user.email}</p>
-                        <hr />
                         </div>
                     );
                 })}
