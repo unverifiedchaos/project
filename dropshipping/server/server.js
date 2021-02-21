@@ -48,7 +48,6 @@ db.on('open', ()=>{console.log('connected to database')})
 app.use(cors())
 
 app.use(bodyParser.urlencoded({extended:true}))//returns urlencoded middleware, and checks for content-type rest-api requests
-
 app.use(cookieParser())
 app.use(bodyParser.json())
 app.use('/auth', auth);

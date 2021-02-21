@@ -8,9 +8,9 @@ POST http://localhost:8080/signup
 Content-Type: application/json
 
 {
-    "name": "test21",
-    "email":"test21@gmail.com",
-    "password":"test21",
+    "name": "test71",
+    "email":"test71@gmail.com",
+    "password":"test71",
     "gender":"Male"
 }
 
@@ -45,13 +45,13 @@ post http://localhost:8080/auth/login
 Content-Type: application/json
 
 {
-	"email": "test21@gmail.com",
-	"password": "test21"
+	"email": "saif@gmail.com",
+	"password": "saif"
 }
 
 ###
 
 get http://localhost:8080/auth/verify
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYwMmNiYjQyNDI3ZmUxODBjZjlhYjhjMSIsImlhdCI6MTYxMzc0MTc1OCwiZXhwIjoxNjEzNzQ1MzU4fQ.sXuOGtx5cc3qK3UhgbJ20ocuwu32T6xeW9q28C1caSs
+Authorization: yJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYwMzIyODNlNzQ4ZWMwMjIwNjEwYzYxOSIsImlhdCI6MTYxMzkxNDc0OSwiZXhwIjoxNjEzOTE4MzQ5fQ.ifLH2cI6CDsu4jGc7kTrEIc_srDgUoU8jvjHDkzyQ9I
 
 ###

@@ -27,7 +27,7 @@ export default class UsersList extends Component {
                 <h2 className="list-head">Users Signed up!</h2>
                 {users.map((user)=>{
                     return(
-                        <div>
+                        <div key={user._id} >
                         <hr />
                         <p>{user.name}</p>
                         <p>{user.gender}</p>

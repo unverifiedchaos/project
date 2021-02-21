@@ -7,6 +7,7 @@ import OAuth from './components/oauth'
 import Dashboard from './components/dashboard'
 import UsersList from './components/UsersList'
 import Login from './components/login'
+import Signup from './components/Signup'
 
 function App(){
 
@@ -17,6 +18,7 @@ function App(){
       <li><a href="/login">Login</a></li>
       <li><a href="/dashboard">dashboard</a></li>
       <li><a href="/users">users</a></li>
+      <li><a href="/signup">signin</a></li>
       </ul>
         <BrowserRouter>
           <Switch>
@@ -28,6 +30,12 @@ function App(){
             </Route>
             <Route path='/login'>
               <Login />
+            </Route>
+            <Route path='/login'>
+              <Login />
+            </Route>
+            <Route path='/signup'>
+              <Signup />
             </Route>
           </Switch>
         </BrowserRouter>

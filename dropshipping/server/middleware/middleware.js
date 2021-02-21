@@ -23,13 +23,11 @@ exports.PostUsers=async (req, res)=>{
             password:hashedPassword,
             gender:req.body.gender,
         })
-        const accessToken=jwt.sign({id:user._id}, 'gludius-maximus', {expiresIn:'1h'})
-        user.accessToken=accessToken
         const newUser=await user.save()
         console.log(newUser)
         res.json(newUser)
     }catch(err){
-        res.status(500).send('email has been taken, try a different email')
+        res.status(500).json('email has been taken, try a different email')
         console.log('email has been taken try a different email');
         console.log(err)
         return;
@@ -106,33 +104,34 @@ exports.deleteUser=async (req, res)=>{
 }
 
 exports.postLogin=async(req, res)=>{
-// allows entry of form type text for verification
-// so we can use the entered text for user.password form
-    res.setHeader("Content-Type", "text/html");
-    try{
-        const user=await SignUp.findOne({email:req.body.email})
-        const passwordIsValid=bcrypt.compareSync(req.body.password, user.password)
-        if(!passwordIsValid){
-            res.send({
-                accessToken:null,
-                message:"Invalid Password"
+    // allows entry of form type text for verification
+    // so we can use the entered text for user.password form
+        res.setHeader("Content-Type", "text/html");
+        try{
+            await SignUp.findOne({email:req.body.email}).exec((err, user)=>{
+                if(err)return res.status(500).send(err)
+                if(!user)return res.status(403).json('user not found')
+                const passwordIsValid=bcrypt.compareSync(req.body.password, user.password)
+                if(!passwordIsValid)return res.status(403).json({
+                    message:'Invalid Password',
+                    AccessToken:null
+                })
+                AccessToken=jwt.sign({id:user._id}, 'gludius-maximus', {expiresIn:'1h'})
+                res.cookie('authcookie', AccessToken, { maxAge:'900000', httpOnly:true })
+                res.status(200).json({
+                    name:user.name,
+                    email:user.email,
+                    password:user.password,
+                    gender:user.gender,
+                    AccessToken:AccessToken
+                })
             })
-            return;
+
+       }catch(err){
+            console.log(err)
+            res.send(err)
         }
-        if(!user){res.status(404).send({message:'user not found'})}
-        const accessToken=jwt.sign({id:user.id}, 'gludiusz-maximus', {expiresIn:'1h'})//gludius-maximus is a, secret-refer documentation of jwt
-        await SignUp.findByIdAndUpdate(user._id, {accessToken})
-        res.cookie('authcookie', accessToken,{maxAges:900000})
-        res.status(200).json({
-            name:user.name,
-            email:user.email,
-            accessToken:accessToken
-        })
-    }catch(err){
-        console.log(err)
-        res.send(err)
     }
-}
 
 exports.updateUserPassword=async (req, res)=>{
     res.setHeader('Content-Type', 'text/html')

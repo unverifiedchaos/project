@@ -1,5 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import {} from 'react-router-dom'
+
 
 class Login extends React.Component {
     state={
@@ -7,47 +9,34 @@ class Login extends React.Component {
         password:''
     }
     
-    componentDidMount(){
-        fetch('http://localhost:8080/signup', {
-            method:'POST',
-            headers:{
-                'Content-Type':'application/json'
-            },
-            body:JSON.stringify(this.state.email),
-            body:JSON.stringify(this.state.password)
+    handleChange=(event)=>{
+        this.setState({[event.target.name]: event.target.value})
+    }
+
+    handleSubmit=(e)=>{
+        e.preventDefault()
+        fetch('http://localhost:8080/auth/login', {
+            method:"POST",
+            headers:{'Content-Type':'application/json'},
+            body:JSON.stringify(this.state),
         })
         .then(res=>res.json())
-        .then(data=>console.log('Success : '+ data))
+        .then(res=>{console.log(res)})
         .catch(err=>console.log(err+'err'))
-    }
-
-    handleChange=(e)=>{
-        const input = e.target;
-        const value=input.value;
-        this.setState({ [input.name]:value })
-        console.log('handleChange')
-    }
-
-//saving data in sessionStorage
-    handleFormSubmit=()=>{
-        const {email, password}=this.state;
-        console.log('formsubmit')
-        sessionStorage.setItem('email', email)
-        sessionStorage.setItem('password', password)
     }
 
     render() {
         return (
             <div>
                 <h2>Login</h2>
-                <form onSubmit={this.handleFormSubmit} >
+                <form onSubmit={this.handleSubmit} >
                     <label>
-                        <input value={this.state.email} name="email" onChange={this.handleChange} type="email"/>
+                        <input name="email" value={this.state.email} onChange={this.handleChange} type="email"/>
                     </label>
                     <label>
-                        <input name="password" value={this.state.password} onChange={this.handleChange} type="password" />
+                        <input name="password" value={this.state.password} onChange={this.handleChange} type="password"/>
                     </label>
-                    <button type="submit">Sign In</button>
+                    <button type="submit">Login</button>
                 </form>
             </div>
         );
@@ -55,5 +44,6 @@ class Login extends React.Component {
 }
 
 Login.propTypes = {};
+
 
 export default Login;
