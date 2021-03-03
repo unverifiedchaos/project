@@ -5,13 +5,10 @@ const signup = require('../database/signup');
 
 exports.verifyToken=(req, res, next)=>{
     //captures headers with the http names 'x-access-token' OR 'authorization'
-        let token=req.cookies.token
-    //removing the word Bearer from the api json string
-/*         if(token.startsWith('Bearer ')){
-            token=token.slice(7, token.length)
-        } */
-    //bearers are token carriers which bear the token to be stored and used
-    
+        let authHeader=req.headers['authorization']
+
+        const token=authHeader && authHeader.split(' ')[1]
+
         if(!token){
             res.send({message:'no token provided'}).status(403);
             return;

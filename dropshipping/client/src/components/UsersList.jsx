@@ -7,12 +7,9 @@ export default class UsersList extends Component {
       }
     
       componentDidMount(){
-        fetch('http://localhost:8080/')
-        .then(res=>res.json())
-        .then(data=>{
-          console.log(data)
-          this.setState({users:data})//stores data into users state
-        })
+        fetch('http://localhost:8080/posts')
+        .then(res=>res.json(res))
+        .then(data=>{this.setState({users:data})})
         .catch(err=>{
           console.log(err+' err')
         })
@@ -29,9 +26,9 @@ export default class UsersList extends Component {
                     return(
                         <div key={user._id} >
                         <hr />
-                        <p>{user.name}</p>
-                        <p>{user.gender}</p>
-                        <p>{user.email}</p>
+                            <p>Name:{user.name}</p>
+                            <p>Post:{user.post}</p>
+                        <hr />
                         </div>
                     );
                 })}

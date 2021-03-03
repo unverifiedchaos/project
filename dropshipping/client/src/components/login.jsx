@@ -1,40 +1,61 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {} from 'react-router-dom'
+import {withRouter} from 'react-router-dom'
 
 
 class Login extends React.Component {
     state={
         email:'',
-        password:''
+        password:'',
     }
     
     handleChange=(event)=>{
         this.setState({[event.target.name]: event.target.value})
     }
+    
+/*     handleSubmitInput=()=>{
+        this.props.parent(this.state.token)
+    } */
 
     handleSubmit=(e)=>{
         e.preventDefault()
         fetch('http://localhost:8080/auth/login', {
+            withCredentials:true,
             method:"POST",
             headers:{'Content-Type':'application/json'},
             body:JSON.stringify(this.state),
         })
-        .then(res=>res.json())
-        .then(res=>{console.log(res)})
-        .catch(err=>console.log(err+'err'))
+        .then(res=>{
+            if(res.ok){
+                this.props.history.push('/users')
+                return res.json()
+            }
+            else if(res.status==403){alert('Incorrect email id')}
+            else if(res.status===401){alert('incorrect password')}
+            else{
+                const err=new Error(res.err);
+                console.log(err+'err')
+                alert('incorrect email or password') 
+            }
+        })
+        .then(data=>{
+            localStorage.setItem("AccessToken", data.AccessToken)
+            console.log(localStorage.getItem("AccessToken")+'accesstoken')
+        })
+        .catch(err=>console.log(err+'error'))
     }
 
     render() {
         return (
             <div>
+                {/* input test */}
                 <h2>Login</h2>
-                <form onSubmit={this.handleSubmit} >
+                <form onSubmit={this.handleSubmit.bind(this)} >
                     <label>
-                        <input name="email" value={this.state.email} onChange={this.handleChange} type="email"/>
+                        Email:<input name="email" value={this.state.email} onChange={this.handleChange} type="email"/>
                     </label>
                     <label>
-                        <input name="password" value={this.state.password} onChange={this.handleChange} type="password"/>
+                        Password:<input name="password" value={this.state.password} onChange={this.handleChange} type="password"/>
                     </label>
                     <button type="submit">Login</button>
                 </form>
@@ -46,4 +67,4 @@ class Login extends React.Component {
 Login.propTypes = {};
 
 
-export default Login;
+export default withRouter(Login);

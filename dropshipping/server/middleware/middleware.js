@@ -1,16 +1,46 @@
 const SignUp=require('../database/signup');
+const Posts=require('../database/posts')
 const bcrypt=require('bcryptjs');
 const jwt=require('jsonwebtoken');
 
 
 exports.getUsers=(req, res)=>{
-    SignUp.find()
+    SignUp.find().populate({path:'posts', select:'post postedBy'})
     .then(result=>{
         console.log(result);
         res.json(result)
         console.log(result.length+' users signed in');
     })
     .catch(err=>console.log(err));
+}
+
+exports.getPosts=(req, res)=>{
+    Posts.find()
+    .then(posts=>{
+        console.log(posts)
+        res.json(posts);
+        console.log(posts.length+' posts')
+    })
+    .catch(err=>console.log(err+'err'))
+}
+
+exports.postPosts=async (req, res)=>{
+    try{
+        const user=await SignUp.findById({_id:req.params.id})
+        const post=new Posts({
+            postedBy:user._id,
+            name:user.name,
+            post:req.body.post
+        })
+        const newPost=await post.save()
+        user.posts.push(newPost)
+        await user.save()
+        console.log(newPost)
+        res.json(newPost)
+    }catch(err){
+        console.log(err)
+        res.json(err).status(500)
+    }
 }
 
 exports.PostUsers=async (req, res)=>{
@@ -33,15 +63,6 @@ exports.PostUsers=async (req, res)=>{
         return;
     }
 }
-/* 
-exports.verifyToken=async (req, res)=>{
-    try{
-        await piGenerator.findOne({email:req.use.email}).exec((err, user)=>{
-
-        })
-    }
-} */
-
 
 exports.find=async(req, res, next)=>{
     try{
@@ -55,19 +76,6 @@ exports.find=async(req, res, next)=>{
         res.json(err).status(500)
         console.log(err)
     }   
-}
-
-exports.loggedIn=async(req, res)=>{
-    try{
-        await SignUp.findById(req.params.id).exec((err, user)=>{
-            if(user){
-                res.json('i am user')
-            }
-            console.log(err)
-        })
-    }catch(e){
-        console.log(e)
-    }
 }
 
 exports.patchUser=async(req, res)=>{
@@ -112,18 +120,19 @@ exports.postLogin=async(req, res)=>{
                 if(err)return res.status(500).send(err)
                 if(!user)return res.status(403).json('user not found')
                 const passwordIsValid=bcrypt.compareSync(req.body.password, user.password)
-                if(!passwordIsValid)return res.status(403).json({
+                if(!passwordIsValid)return res.status(401).json({
                     message:'Invalid Password',
                     AccessToken:null
                 })
-                AccessToken=jwt.sign({id:user._id}, 'gludius-maximus', {expiresIn:'1h'})
-                res.cookie('authcookie', AccessToken, { maxAge:'900000', httpOnly:true })
+                AccessToken=jwt.sign({id:user._id, name:user.name, gender:user.gender}, 'gludius-maximus', {expiresIn:'1h'})
+                res.cookie('authCookie', AccessToken, {maxAge:360000})
                 res.status(200).json({
                     name:user.name,
                     email:user.email,
                     password:user.password,
                     gender:user.gender,
-                    AccessToken:AccessToken
+                    AccessToken:AccessToken,
+                    cookie:req.cookies
                 })
             })
 
