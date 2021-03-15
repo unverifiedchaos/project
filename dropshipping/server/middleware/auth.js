@@ -17,7 +17,7 @@ exports.verifyToken=(req, res, next)=>{
     // if the token isn't correct. there is a breach in security or error in code
         jwt.verify(token, 'gludius-maximus',{ algorithm: 'RS256'}, (err, decoded)=>{
             if(err){
-                res.send({message:"Unauthorized, perhaps token might be invalid pr expired"});
+                res.send({message:"Unauthorized, perhaps token might be invalid pr expired"}).status(403);
                 console.log(err)
                 return;//due to error pass control to the next handle immediately
             }
@@ -37,6 +37,6 @@ exports.findUser=(req, res, next)=>{
     SignUp.findById(req.userId, {password:0}, (err, user)=>{
         if(err){return res.status(500).send({message:'problem in finding a user'})}
         if(!user){return res.status(403).send({message:'user not found'})}
-        res.status(200).send(user)
-    })
+        res.status(200).json(user)
+    }).populate({path:'posts', select:'post'})
 }

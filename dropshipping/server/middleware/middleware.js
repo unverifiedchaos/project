@@ -127,12 +127,11 @@ exports.postLogin=async(req, res)=>{
                 AccessToken=jwt.sign({id:user._id, name:user.name, gender:user.gender}, 'gludius-maximus', {expiresIn:'1h'})
                 res.cookie('authCookie', AccessToken, {maxAge:360000})
                 res.status(200).json({
+                    id:user.id,
                     name:user.name,
                     email:user.email,
-                    password:user.password,
                     gender:user.gender,
                     AccessToken:AccessToken,
-                    cookie:req.cookies
                 })
             })
 

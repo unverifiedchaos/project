@@ -1,34 +1,52 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import axios from 'axios'
+import {Redirect} from 'react-router'
+import Cookies from 'universal-cookie';
+
 
 class Userdata extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {};
+
+    state={
+        user:[]
     }
 
-    handleSubmit=(e)=>{
-        e.preventDefault()
-        const token=localStorage.getItem('AccessToken')
-        fetch('', {
-            method:"POST",
-            headers:{
-                "Content-Type":"apllication/json",
-                'Authorization':` Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYwMzExZmQ5YzQ4M2EyMGQxOTU0NzE1ZSIsIm5hbWUiOiJzYWlmIiwiZ2VuZGVyIjoiTWFsZSIsImlhdCI6MTYxNDY3NjY5MSwiZXhwIjoxNjE0NjgwMjkxfQ.sLMdqlbUl82SFLf1jGAYmg2QHQub2SFp4BcNQeerM1w`
-            },
+    componentDidMount(){
+        const cookies=new Cookies()
+        const cookie=cookies.get('cookie')
+        fetch('http://localhost:8080/auth/verify',{
+            headers:{'Authorization' : `Bearer ${cookie}`}
         })
-        .then(res=>{
-            console.log(JSON.stringify(res.body))
+        .then(res=> res.json())
+        .then(data=>{
+            console.log(data);
+            this.setState({user:data})
+            this.setState({posts:data.post})
         })
-        .catch(err=>console.log(err))
     }
 
     render() {
+
+        const cookies=new Cookies()
+        const isLogged=cookies.get('cookie')
+
+        if(!isLogged){
+            return(
+                <Redirect to="/login"/>
+            )
+        }
+
+        const user=this.state.user
         return (
+/*             posts.map(user=>{
+                <p>{user}</p>
+            }) */
             <div>
-                sup
-            </div>
-        );
+                <p>{user.name}</p>
+                <p>{user.gender}</p>
+                <p>{user.email}</p>
+            </div>    
+        )
     }
 }
 

@@ -1,6 +1,8 @@
 const express=require('express')
 const cookieParser=require('cookie-parser')
 const passport=require('passport')
+const redis=require('redis');
+const axios =require('axios');
 const bodyParser = require('body-parser')
 const session=require('express-session')
 const MongoStore=require('connect-mongodb-session')(session)
@@ -16,7 +18,8 @@ const app = express();
 
 const SignUp=require('./database/signup')
 const auth=require('./routes/routes')
-const crud=require('./routes/crud')
+const crud=require('./routes/crud');
+const { search } = require('./routes/routes');
 
 
 
@@ -45,6 +48,33 @@ const db=mongoose.connection;
 db.on('err', err=>console.log(err))
 db.on('open', ()=>{console.log('connected to database')})
 
+const redisPort=6379
+const client=redis.createClient(redisPort)
+
+app.get('/cache', async(req, res)=>{
+    const searchTerm=req.query.search;
+    try{
+        client.get(searchTerm, async (err, jobs)=>{
+            if(err) throw err;
+            if(jobs){
+                res.status(200).send({
+                    jobs:JSON.parse(jobs),
+                    message:"data retrieved from cache"
+                })
+            }else{
+                const jobs=await axios.get(`https://jobs.github.com/positions.json?search=${searchTerm}`);
+                client.setex(searchTerm, 600, JSON.stringify(jobs.data));
+                res.status(200).send({
+                    jobs:jobs.data,
+                    message:"cache miss"
+                })
+            }
+        })
+    }catch(err){
+        res.status(500).send({message:err.message})
+    }
+})
+
 app.use(cors())
 app.use(cors(
     {
@@ -55,22 +85,15 @@ app.use(cors(
     }
 ));//securing cors to only one host
 
-//allowing cookie credentials to pass through
-app.use(function(req, res, next) {
-    res.header('Content-Type', 'application/json;charset=UTF-8')
-    res.header('Access-Control-Allow-Credentials', true)
-    res.header(
-      'Access-Control-Allow-Headers',
-      'Origin, X-Requested-With, Content-Type, Accept'
-    )
-    next()
-})
-
 app.use(bodyParser.urlencoded({extended:true}))//returns urlencoded middleware, and checks for content-type rest-api requests
 app.use(cookieParser())
 app.use(bodyParser.json())
 app.use('/auth', auth);
 app.use('/', crud);
+
+client.on("error", err=>{
+    console.log(err)
+})
 
 app.listen(port, ()=>{
     console.log('connected to port '+port);

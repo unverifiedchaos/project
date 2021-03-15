@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {withRouter} from 'react-router-dom'
+import Cookies from 'universal-cookie'
+import {Redirect, withRouter} from 'react-router-dom'
 
 
 class Login extends React.Component {
@@ -27,7 +28,7 @@ class Login extends React.Component {
         })
         .then(res=>{
             if(res.ok){
-                this.props.history.push('/users')
+                <Redirect to ='/users'/>
                 return res.json()
             }
             else if(res.status==403){alert('Incorrect email id')}
@@ -39,8 +40,9 @@ class Login extends React.Component {
             }
         })
         .then(data=>{
-            localStorage.setItem("AccessToken", data.AccessToken)
-            console.log(localStorage.getItem("AccessToken")+'accesstoken')
+            /* localStorage.setItem("AccessToken", data.AccessToken) */
+            const cookies=new Cookies();
+            cookies.set('cookie', data.AccessToken, {path:'/', maxAge:360000});
         })
         .catch(err=>console.log(err+'error'))
     }
