@@ -1,2 +1,1 @@
-# Drop Shipping
- a dropshipping website
+few of my personal projects
